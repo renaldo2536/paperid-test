@@ -1,0 +1,52 @@
+<div class="overflow-x-auto">
+ <!-- Loading State -->
+ <div *ngIf="isLoading" class="text-center text-gray-500 animate-pulse">
+    <p class="text-xl">Loading users...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="hasError" class="text-center text-red-500">
+    <p class="text-xl font-bold">Failed to load users.</p>
+    <button
+      class="mt-4 px-4 py-2 text-white rounded-lg bg-red-500 hover:bg-red-600"
+      (click)="retry()"
+    >
+      Retry
+    </button>
+  </div>
+
+  <table class="w-full table-auto border-collapse rounded-lg shadow-lg overflow-hidden">
+    <thead class="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+      <tr>
+        <th class="p-4 text-left">Name</th>
+        <th class="p-4 text-left hidden md:table-cell">Email</th>
+        <th class="p-4 text-left hidden lg:table-cell">Website</th>
+        <th class="p-4 text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="bg-white">
+      <tr *ngFor="let user of users" class="hover:bg-gray-100 transition-all">
+        <td class="p-4 border-b">{{ user.name }}</td>
+        <td class="p-4 border-b hidden md:table-cell">{{ user.email }}</td>
+        <td class="p-4 border-b hidden lg:table-cell">
+          <a href="http://{{ user.website }}" target="_blank" class="text-blue-600 underline">
+            {{ user.website }}
+          </a>
+        </td>
+        <td class="p-4 border-b text-center">
+          <button
+            class="px-4 py-2 text-white rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg transform hover:scale-105 transition-all"
+            (click)="viewDetails(user.id)"
+          >
+            View
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && !hasError && !users.length" class="text-center text-gray-500">
+      <p class="text-xl">No users found.</p>
+    </div>
+</div>

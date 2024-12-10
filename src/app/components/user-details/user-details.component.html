@@ -1,0 +1,35 @@
+<div *ngIf="user; else loading" class="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50 p-6 bg-gray-100 rounded-lg shadow-lg w-full h-auto transition-all transform duration-500 ease-out"
+  [ngClass]="{'translate-x-0': user, 'translate-x-[-100%]': !user}">
+
+  <div class="p-6 bg-white shadow-xl rounded-lg max-w-xl w-full h-auto">
+    <h2 class="text-xl font-bold text-center text-gray-800 mb-4">{{ user?.name }}</h2>
+
+    <div>
+      <div class="flex-col justify-between items-center space-y-2">
+        <p class="text-lg font-medium text-gray-600">
+          <strong>Email:</strong> {{ user?.email }}</p>
+        <p class="text-lg font-medium text-gray-600">
+          <strong>Phone:</strong> {{ user?.phone }}</p>
+        <p class="text-lg font-medium text-gray-600">
+          <strong>Company:</strong> {{ user?.company?.name }}</p>
+        <p class="text-lg font-medium text-gray-600">
+          <strong>Address:</strong> {{ user?.address?.street }}, {{ user?.address?.city }}</p>
+      </div>
+      <div class="space-x-2">
+        <a href="http://{{ user?.website }}" target="_blank" class="inline-block px-4 py-2 text-white rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg transform hover:scale-105 transition-all">
+          Visit Website
+        </a>
+        <button (click)="goBack()" class="inline-block px-4 py-2 text-white bg-gray-500 hover:bg-gray-600 rounded-lg text-center transition-all w-full sm:w-auto mt-4 hover:scale-105">
+          Go Back
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="flex justify-center items-center h-screen bg-gray-100">
+    <p class="text-xl text-gray-500">Loading user details...</p>
+  </div>
+</ng-template>
